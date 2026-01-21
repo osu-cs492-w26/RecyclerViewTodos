@@ -23,17 +23,9 @@
         android:layout_marginHorizontal="4dp"
         android:text="Add to-do"/>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_todo_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_todo_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textSize="22sp"/>
-
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

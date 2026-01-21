@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,17 +23,21 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val todoListTV: TextView = findViewById(R.id.tv_todo_list)
         val todoEntryET: EditText = findViewById(R.id.et_todo_entry)
         val addTodoBtn: Button = findViewById(R.id.btn_add_todo)
+        val todoListRV: RecyclerView = findViewById(R.id.rv_todo_list)
 
-        val todoList = mutableListOf<String>()
+        todoListRV.layoutManager = LinearLayoutManager(this)
+        todoListRV.setHasFixedSize(true)
+
+        val adapter = TodoAdapter()
+        todoListRV.adapter = adapter
 
         addTodoBtn.setOnClickListener {
             val newTodo = todoEntryET.text.toString()
             if (!TextUtils.isEmpty(newTodo)) {
-                todoList.add(0, newTodo)
-                todoListTV.text = todoList.joinToString(separator = "\n\n☐  ", prefix = "☐  ")
+                adapter.addTodo(Todo(newTodo))
+                todoListRV.scrollToPosition(0)
                 todoEntryET.setText("")
             }
         }
